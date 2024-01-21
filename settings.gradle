@@ -1,0 +1,4 @@
+rootProject.name = 'housing_managment'
+
+include "housing"
+include "cache-starter"

@@ -1,6 +1,8 @@
 package ru.clevertec.house.facade.impl;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import ru.clevertec.house.dto.response.HouseResponseDto;
 import ru.clevertec.house.dto.response.PersonResponseDto;
@@ -23,30 +25,26 @@ public class HouseHistoryServiceFacadeImpl implements HouseHistoryServiceFacade 
     private final PersonMapper personMapper;
 
     @Override
-    public List<PersonResponseDto> findAllPreviousResidentsOfHouse(UUID houseId) {
-        return personService.findAllPreviousResidentsOfHouse(houseId).stream()
-                .map(personMapper::toDto)
-                .toList();
+    public Page<PersonResponseDto> findAllPreviousResidentsOfHouse(UUID houseId, Pageable pageable) {
+        return personService.findAllPreviousResidentsOfHouse(houseId, pageable)
+                .map(personMapper::toDto);
     }
 
     @Override
-    public List<PersonResponseDto> findAllPreviousOwnersOfHouse(UUID houseId) {
-        return personService.findAllPreviousOwnersOfHouse(houseId).stream()
-                .map(personMapper::toDto)
-                .toList();
+    public Page<PersonResponseDto> findAllPreviousOwnersOfHouse(UUID houseId, Pageable pageable) {
+        return personService.findAllPreviousOwnersOfHouse(houseId, pageable)
+                .map(personMapper::toDto);
     }
 
     @Override
-    public List<HouseResponseDto> findAllPreviousResidencyOfPerson(UUID personId) {
-        return houseService.findAllPreviousResidencyOfPerson(personId).stream()
-                .map(houseMapper::toDto)
-                .toList();
+    public Page<HouseResponseDto> findAllPreviousResidencyOfPerson(UUID personId, Pageable pageable) {
+        return houseService.findAllPreviousResidencyOfPerson(personId, pageable)
+                .map(houseMapper::toDto);
     }
 
     @Override
-    public List<HouseResponseDto> findAllPreviousOwnedHousesOfPerson(UUID personId) {
-        return houseService.findAllPreviousOwnedHousesOfPerson(personId).stream()
-                .map(houseMapper::toDto)
-                .toList();
+    public Page<HouseResponseDto> findAllPreviousOwnedHousesOfPerson(UUID personId,Pageable pageable) {
+        return houseService.findAllPreviousOwnedHousesOfPerson(personId, pageable)
+                .map(houseMapper::toDto);
     }
 }

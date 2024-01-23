@@ -13,13 +13,13 @@ public interface HouseService {
 
     House findById(UUID id);
 
-    List<House> findHousesByOwner(UUID id);
+    Page<House> findHousesByOwner(UUID id, Pageable pageable);
 
     Page<House> findAll(Pageable pageable);
 
-    List<House> findAllPreviousResidencyOfPerson(UUID personId);
+    Page<House> findAllPreviousResidencyOfPerson(UUID personId, Pageable pageable);
 
-    List<House> findAllPreviousOwnedHousesOfPerson(UUID personId);
+    Page<House> findAllPreviousOwnedHousesOfPerson(UUID personId, Pageable pageable);
 
     House update(UUID id, House house);
 

@@ -1,4 +1,4 @@
-rootProject.name = 'housing_managment'
+rootProject.name = 'housing_management'
 
 include "housing"
 include "cache-starter"

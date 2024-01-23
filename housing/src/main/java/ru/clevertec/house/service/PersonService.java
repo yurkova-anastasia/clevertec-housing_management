@@ -14,13 +14,13 @@ public interface PersonService {
 
     Person findById(UUID id);
 
-    List<Person> findPersonsByResidency(UUID id);
+    Page<Person> findPersonsByResidency(UUID id, Pageable pageable);
 
     Page<Person> findAll(Pageable pageable);
 
-    List<Person> findAllPreviousResidentsOfHouse(UUID houseId);
+    Page<Person> findAllPreviousResidentsOfHouse(UUID houseId, Pageable pageable);
 
-    List<Person> findAllPreviousOwnersOfHouse(UUID houseId);
+    Page<Person> findAllPreviousOwnersOfHouse(UUID houseId, Pageable pageable);
 
     Person update(UUID id, Person person);
 

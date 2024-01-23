@@ -1,5 +1,7 @@
 package ru.clevertec.house.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import ru.clevertec.house.model.Person;
@@ -22,8 +24,9 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
             where
             	h.uuid = :houseId
             	and hh.type = 'TENANT'
+            limit :#{#pageable.getPageSize()} offset :#{#pageable.getOffset()}
             """, nativeQuery = true)
-    List<Person> findAllPreviousResidentsOfHouse(UUID houseId);
+    Page<Person> findAllPreviousResidentsOfHouse(UUID houseId, Pageable pageable);
 
     @Query(value = """
             select
@@ -37,12 +40,13 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
             where
             	h.uuid = :houseId
             	and hh.type = 'OWNER'
+            limit :#{#pageable.getPageSize()} offset :#{#pageable.getOffset()}
             """, nativeQuery = true)
-    List<Person> findAllPreviousOwnersOfHouse(UUID houseId);
+    Page<Person> findAllPreviousOwnersOfHouse(UUID houseId, Pageable pageable);
 
     Optional<Person> findByUuid(UUID id);
 
-    List<Person> findPersonsByResidency_Uuid(UUID uuid);
+    Page<Person> findPersonsByResidency_Uuid(UUID uuid, Pageable pageable);
 
     void deleteByUuid(UUID id);
 

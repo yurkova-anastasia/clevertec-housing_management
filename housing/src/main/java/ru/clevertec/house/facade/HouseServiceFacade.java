@@ -15,7 +15,7 @@ public interface HouseServiceFacade {
 
     HouseResponseDto findById(UUID id);
 
-    List<PersonResponseDto> findHouseResidents(UUID id);
+    Page<PersonResponseDto> findHouseResidents(UUID id, Pageable pageable);
 
     Page<HouseResponseDto> findAll(Pageable pageable);
 

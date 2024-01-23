@@ -11,7 +11,6 @@ import ru.clevertec.house.model.House;
 import ru.clevertec.house.repository.HouseRepository;
 import ru.clevertec.house.service.HouseService;
 
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,8 +31,8 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> findHousesByOwner(UUID id) {
-        return houseRepository.findHousesByOwners_Uuid(id);
+    public Page<House> findHousesByOwner(UUID id, Pageable pageable) {
+        return houseRepository.findHousesByOwners_Uuid(id, pageable);
     }
 
     @Override
@@ -43,13 +42,13 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public List<House> findAllPreviousResidencyOfPerson(UUID personId) {
-        return houseRepository.findAllPreviousResidencyOfPerson(personId);
+    public Page<House> findAllPreviousResidencyOfPerson(UUID personId, Pageable pageable) {
+        return houseRepository.findAllPreviousResidencyOfPerson(personId, pageable);
     }
 
     @Override
-    public List<House> findAllPreviousOwnedHousesOfPerson(UUID personId) {
-        return houseRepository.findAllPreviousOwnedHousesOfPerson(personId);
+    public Page<House> findAllPreviousOwnedHousesOfPerson(UUID personId, Pageable pageable) {
+        return houseRepository.findAllPreviousOwnedHousesOfPerson(personId, pageable);
     }
 
     @Override

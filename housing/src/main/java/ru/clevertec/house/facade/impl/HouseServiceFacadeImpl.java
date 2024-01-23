@@ -39,10 +39,9 @@ public class HouseServiceFacadeImpl implements HouseServiceFacade {
     }
 
     @Override
-    public List<PersonResponseDto> findHouseResidents(UUID id) {
-        return personService.findPersonsByResidency(id).stream()
-                .map(personMapper::toDto)
-                .toList();
+    public Page<PersonResponseDto> findHouseResidents(UUID id, Pageable pageable) {
+        return personService.findPersonsByResidency(id, pageable)
+                .map(personMapper::toDto);
     }
 
     @Override

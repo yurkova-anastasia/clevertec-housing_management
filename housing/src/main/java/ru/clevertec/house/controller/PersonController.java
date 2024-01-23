@@ -1,5 +1,6 @@
 package ru.clevertec.house.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -33,27 +34,34 @@ public class PersonController {
     private final PersonServiceFacade personServiceFacade;
 
     @PostMapping
+    @Operation(summary = "Create new Person")
     public ResponseEntity<HttpStatus> create(@RequestBody PersonRequestDto personRequestDto) {
         personServiceFacade.create(personRequestDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Find Person by id")
     public ResponseEntity<PersonResponseDto> findById(@PathVariable("id") UUID id) {
         return new ResponseEntity<>(personServiceFacade.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/{id}/owned-houses")
-    public ResponseEntity<List<HouseResponseDto>> findOwnedHouses(@PathVariable("id") UUID id) {
-        return new ResponseEntity<>(personServiceFacade.findOwnedHouses(id), HttpStatus.OK);
-    }
-
     @GetMapping()
+    @Operation(summary = "Find all people")
     public ResponseEntity<List<PersonResponseDto>> findAll(@PageableDefault(size = 15) Pageable pageable) {
         return new ResponseEntity<>(personServiceFacade.findAll(pageable).getContent(), HttpStatus.OK);
     }
 
+    @GetMapping("/{id}/owned-houses")
+    @Operation(summary = "Find all houses that a person owns")
+    public ResponseEntity<List<HouseResponseDto>> findOwnedHouses(@PathVariable("id") UUID id,
+                                                                  @PageableDefault(size = 15) Pageable pageable) {
+        List<HouseResponseDto> result = personServiceFacade.findOwnedHouses(id, pageable).getContent();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
+    @Operation(summary = "Update person")
     public ResponseEntity<HttpStatus> update(@PathVariable("id") UUID id,
                                              @RequestBody PersonRequestDto personRequestDto) {
         personServiceFacade.update(id, personRequestDto);
@@ -61,6 +69,7 @@ public class PersonController {
     }
 
     @PatchMapping("{id}/owned-houses")
+    @Operation(summary = "Add a new house that a person owns")
     public ResponseEntity<HttpStatus> addOwnedHouse(@PathVariable("id") UUID id,
                                                     @RequestParam UUID houseId) {
         personServiceFacade.addOwnedHouse(id, houseId);
@@ -68,6 +77,7 @@ public class PersonController {
     }
 
     @DeleteMapping("{id}/-owned-houses")
+    @Operation(summary = "Remove a house from person ownership")
     public ResponseEntity<HttpStatus> removeOwnedHouse(@PathVariable("id") UUID id,
                                                        @RequestParam UUID houseId) {
         personServiceFacade.removeOwnedHouse(id, houseId);
@@ -75,6 +85,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Delete person")
     public ResponseEntity<HttpStatus> delete(@PathVariable("id") UUID id) {
         personServiceFacade.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);

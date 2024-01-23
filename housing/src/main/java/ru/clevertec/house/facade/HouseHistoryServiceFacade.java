@@ -1,5 +1,7 @@
 package ru.clevertec.house.facade;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import ru.clevertec.house.dto.response.HouseResponseDto;
 import ru.clevertec.house.dto.response.PersonResponseDto;
 
@@ -8,12 +10,12 @@ import java.util.UUID;
 
 public interface HouseHistoryServiceFacade {
 
-    List<PersonResponseDto> findAllPreviousResidentsOfHouse(UUID houseId);
+    Page<PersonResponseDto> findAllPreviousResidentsOfHouse(UUID houseId, Pageable pageable);
 
-    List<PersonResponseDto> findAllPreviousOwnersOfHouse(UUID houseId);
+    Page<PersonResponseDto> findAllPreviousOwnersOfHouse(UUID houseId, Pageable pageable);
 
-    List<HouseResponseDto> findAllPreviousResidencyOfPerson(UUID personId);
+    Page<HouseResponseDto> findAllPreviousResidencyOfPerson(UUID personId, Pageable pageable);
 
-    List<HouseResponseDto> findAllPreviousOwnedHousesOfPerson(UUID personId);
+    Page<HouseResponseDto> findAllPreviousOwnedHousesOfPerson(UUID personId, Pageable pageable);
 
 }

@@ -15,7 +15,6 @@ import ru.clevertec.house.model.Person;
 import ru.clevertec.house.service.HouseService;
 import ru.clevertec.house.service.PersonService;
 
-import java.util.List;
 import java.util.UUID;
 
 @Component
@@ -40,10 +39,9 @@ public class PersonServiceFacadeImpl implements PersonServiceFacade {
     }
 
     @Override
-    public List<HouseResponseDto> findOwnedHouses(UUID id) {
-        return houseService.findHousesByOwner(id).stream()
-                .map(houseMapper::toDto)
-                .toList();
+    public Page<HouseResponseDto> findOwnedHouses(UUID id, Pageable pageable) {
+        return houseService.findHousesByOwner(id, pageable)
+                .map(houseMapper::toDto);
     }
 
     @Override

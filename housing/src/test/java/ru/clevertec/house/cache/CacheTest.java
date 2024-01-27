@@ -1,11 +1,14 @@
-package ru.clevertec.house;
+package ru.clevertec.house.cache;
 
+import lombok.RequiredArgsConstructor;
 import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import ru.clevertec.house.TestContainer;
 import ru.clevertec.house.model.House;
 import ru.clevertec.house.service.HouseService;
 
@@ -18,10 +21,11 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class CacheIntegrationTest extends TestContainer {
+@RequiredArgsConstructor(onConstructor = @__(@Autowired))
+@SpringBootTest
+public class CacheTest extends TestContainer {
 
-    @Autowired
-    private HouseService houseService;
+    private final HouseService houseService;
 
     @Test
     void testCacheInMultithreadedEnvironment_findById() throws InterruptedException {

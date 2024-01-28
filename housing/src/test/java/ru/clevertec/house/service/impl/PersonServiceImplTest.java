@@ -8,7 +8,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import ru.clevertec.house.TestContainer;
+import ru.clevertec.house.util.TestContainer;
 import ru.clevertec.house.model.House;
 import ru.clevertec.house.model.Person;
 import ru.clevertec.house.repository.PersonRepository;

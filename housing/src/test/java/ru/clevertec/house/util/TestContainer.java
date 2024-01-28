@@ -1,4 +1,4 @@
-package ru.clevertec.house;
+package ru.clevertec.house.util;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.springframework.test.context.DynamicPropertyRegistry;

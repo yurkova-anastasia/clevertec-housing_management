@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import ru.clevertec.house.TestContainer;
+import ru.clevertec.house.util.TestContainer;
 import ru.clevertec.house.model.House;
 import ru.clevertec.house.service.HouseService;
 

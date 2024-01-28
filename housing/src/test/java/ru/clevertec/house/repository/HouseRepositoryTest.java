@@ -11,7 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import ru.clevertec.house.util.TestContainer;
-import ru.clevertec.house.model.Person;
+import ru.clevertec.house.model.House;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,30 +19,30 @@ import java.util.UUID;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
-class PersonRepositoryTest extends TestContainer {
+class HouseRepositoryTest extends TestContainer {
 
     private final TestEntityManager testEntityManager;
-    private final PersonRepository personRepository;
+    private final HouseRepository houseRepository;
 
     @Test
-    void findAllPreviousResidentsOfHouse() {
-        Person person = testEntityManager.find(Person.class, 2L);
-        Page<Person> expected = new PageImpl<>(List.of(person));
+    void findAllPreviousResidencyOfPerson() {
+        House house = testEntityManager.find(House.class, 1L);
+        Page<House> expected = new PageImpl<>(List.of(house));
 
-        Page<Person> actual = personRepository
-                .findAllPreviousResidentsOfHouse(UUID.fromString("59c89acc-62a4-4cbc-87ed-78f632996c08"),
+        Page<House> actual = houseRepository
+                .findAllPreviousResidencyOfPerson(UUID.fromString("4eac5a60-63b8-443e-9122-9b455745ae5e"),
                         PageRequest.of(0, 15));
 
         Assertions.assertEquals(expected.getContent(), actual.getContent());
     }
 
     @Test
-    void findAllPreviousOwnersOfHouse() {
-        Person person = testEntityManager.find(Person.class, 2L);
-        Page<Person> expected = new PageImpl<>(List.of(person));
+    void findAllPreviousOwnedHousesOfPerson() {
+        House house = testEntityManager.find(House.class, 1L);
+        Page<House> expected = new PageImpl<>(List.of(house));
 
-        Page<Person> actual = personRepository
-                .findAllPreviousOwnersOfHouse(UUID.fromString("59c89acc-62a4-4cbc-87ed-78f632996c08"),
+        Page<House> actual = houseRepository
+                .findAllPreviousOwnedHousesOfPerson(UUID.fromString("4eac5a60-63b8-443e-9122-9b455745ae5e"),
                         PageRequest.of(0, 15));
 
         Assertions.assertEquals(expected.getContent(), actual.getContent());
